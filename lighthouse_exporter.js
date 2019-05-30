@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 'use strict';
 
 const http = require('http');
@@ -25,7 +27,7 @@ http.createServer(async (req, res) => {
 
         data.push('# HELP lighthouse_exporter_info Exporter Info');
         data.push('# TYPE lighthouse_exporter_info gauge');
-        data.push(`lighthouse_exporter_info{version="0.1",chrome_version="${await browser.version()}"} 1`);
+        data.push(`lighthouse_exporter_info{version="0.1.1",chrome_version="${await browser.version()}"} 1`);
 
         data.push('# HELP lighthouse_score The Score per Category');
         data.push('# TYPE lighthouse_score gauge');
