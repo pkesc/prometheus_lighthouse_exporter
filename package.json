@@ -1,0 +1,29 @@
+{
+  "name": "prometheus_lighthouse_exporter",
+  "version": "0.1",
+  "description": "",
+  "main": "lighthouse_exporter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node lighthouse_exporter.js"
+  },
+  "keywords": [
+    "prometheus",
+    "lighthouse",
+    "exporter"
+  ],
+  "bin": {
+    "lighthouse_exporter": "./lighthouse_exporter.js"
+  },
+  "author": "Philipp Keschl",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pkesc/prometheus_lighthouse_exporter"
+  },
+  "dependencies": {
+    "lighthouse": "^5.0.0",
+    "minimalist": "^1.0.0",
+    "puppeteer": "^1.17.0"
+  }
+}
