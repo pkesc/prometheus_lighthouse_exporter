@@ -2,10 +2,16 @@
 
 This is an simple Prometheus Exporter for Lighthouse Performance Data. With this you monitor continuously the Lighthouse Score of your Webpage.
 
+## Install
+You can install it with npm. --unsafe-perm is needed because i use Puppeteer and without it you cannot install it globally.
+```bash
+sudo npm i -g prometheus_lighthouse_exporter --unsafe-perm
+```
+
 ## Sample Prometheus Config
 ```yaml
 global:
-  scrape_interval: 1h
+  scrape_interval: 5m
   evaluation_interval: 30s
   scrape_timeout: 15s
 
