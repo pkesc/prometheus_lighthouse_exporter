@@ -54,6 +54,9 @@ http.createServer(async (req, res) => {
                 data.push(`lighthouse_timings{audit="first-cpu-idle"} ${Math.round(audits["first-cpu-idle"].numericValue)}`);
                 data.push(`lighthouse_timings{audit="interactive"} ${Math.round(audits["interactive"].numericValue)}`);
                 data.push(`lighthouse_timings{audit="estimated-input-latency"} ${Math.round(audits["estimated-input-latency"].numericValue)}`);
+            })
+            .catch(error => {
+                console.error(error);
             });
 
         await browser.close();
