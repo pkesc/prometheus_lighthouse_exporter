@@ -20,9 +20,7 @@ if('p' in argv){
 const mutex = new Mutex();
 
 http.createServer(async (req, res) => {
-    console.log("Start", new Date(), req.url);
     const release = await mutex.acquire();
-    console.log("Lock", new Date(), req.url);
 
     var q = url.parse(req.url, true);
 
@@ -34,7 +32,7 @@ http.createServer(async (req, res) => {
 
         data.push('# HELP lighthouse_exporter_info Exporter Info');
         data.push('# TYPE lighthouse_exporter_info gauge');
-        data.push(`lighthouse_exporter_info{version="0.2.2",chrome_version="${await browser.version()}",node_version="${process.version}"} 1`);
+        data.push(`lighthouse_exporter_info{version="0.2.3",chrome_version="${await browser.version()}",node_version="${process.version}"} 1`);
 
         await lighthouse(target, {
             port: url.parse(browser.wsEndpoint()).port,
@@ -73,8 +71,6 @@ http.createServer(async (req, res) => {
     } else{
         res.writeHead(404);
     }
-
-    console.log("Release", new Date(), req.url);
 
     release();
 
