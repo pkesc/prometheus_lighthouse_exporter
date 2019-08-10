@@ -13,7 +13,7 @@ sudo npm i -g prometheus_lighthouse_exporter --unsafe-perm
 global:
   scrape_interval: 5m
   evaluation_interval: 30s
-  scrape_timeout: 15s
+  scrape_timeout: 1m
 
 scrape_configs:
   - job_name: 'lighthouse'
@@ -21,6 +21,7 @@ scrape_configs:
     static_configs:
       - targets:
         - https://philippkeschl.at
+        - https://username:password@philippkeschl.at
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
@@ -29,6 +30,8 @@ scrape_configs:
       - target_label: __address__
         replacement: 127.0.0.1:9593
 ```
+
+If you want to Test and Page with HTTP Basic Authetication you can add the Username und Password to the URL of the Target as you can see in the Example above.
 
 ## Grafana Dashboard
 
