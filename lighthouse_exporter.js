@@ -33,7 +33,7 @@ http.createServer(async (req, res) => {
 
             data.push('# HELP lighthouse_exporter_info Exporter Info');
             data.push('# TYPE lighthouse_exporter_info gauge');
-            data.push(`lighthouse_exporter_info{version="0.2.5",chrome_version="${await browser.version()}",node_version="${process.version}"} 1`);
+            data.push(`lighthouse_exporter_info{version="0.2.6",chrome_version="${await browser.version()}",node_version="${process.version}"} 1`);
 
             await lighthouse(target, {
                 port: url.parse(browser.wsEndpoint()).port,
@@ -62,8 +62,9 @@ http.createServer(async (req, res) => {
                     data.push(`lighthouse_timings{audit="estimated-input-latency"} ${Math.round(audits["estimated-input-latency"].numericValue)}`);
                     data.push(`lighthouse_timings{audit="total-blocking-time"} ${Math.round(audits["total-blocking-time"].numericValue)}`);
                     data.push(`lighthouse_timings{audit="max-potential-fid"} ${Math.round(audits["max-potential-fid"].numericValue)}`);
-                    data.push(`lighthouse_timings{audit="time-to-first-byte"} ${Math.round(audits["time-to-first-byte"].numericValue)}`);
+                    data.push(`lighthouse_timings{audit="server-response-time"} ${Math.round(audits["server-response-time"].numericValue)}`);
                     data.push(`lighthouse_timings{audit="bootup-time"} ${Math.round(audits["bootup-time"].numericValue)}`);
+                    data.push(`lighthouse_timings{audit="largest-contentful-paint"} ${Math.round(audits["largest-contentful-paint"].numericValue)}`);
                 })
                 .catch(error => {
                     console.error("Lighthouse", Date(), error);
