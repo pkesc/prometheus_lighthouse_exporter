@@ -1,19 +1,22 @@
-FROM node:10-stretch-slim
+FROM node:12-buster-slim
 
 WORKDIR /usr/src/app/
 
-RUN apt-get update && apt-get install -y wget gnupg2
-
 # Install the dependencies for Chromium
 # check out: https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+RUN apt-get update \
+    && apt-get install -y wget gnupg \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
     && apt-get update \
-    && apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont dumb-init \
+    && apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf dumb-init \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm i -g prometheus_lighthouse_exporter --unsafe-perm
+COPY lighthouse_exporter.js .
+COPY package.json .
+
+RUN npm install
 
 EXPOSE 9593
 
@@ -22,4 +25,4 @@ EXPOSE 9593
 # https://github.com/Yelp/dumb-init
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-CMD ["lighthouse_exporter"]
+CMD ["node", "lighthouse_exporter.js"]
