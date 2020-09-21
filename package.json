@@ -1,6 +1,6 @@
 {
   "name": "prometheus_lighthouse_exporter",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "",
   "main": "lighthouse_exporter.js",
   "scripts": {
@@ -22,9 +22,9 @@
     "url": "https://github.com/pkesc/prometheus_lighthouse_exporter"
   },
   "dependencies": {
-    "async-mutex": "^0.2.2",
-    "lighthouse": "^6.0.0",
+    "async-mutex": "^0.2.4",
+    "lighthouse": "^6.3.0",
     "minimist": "^1.2.5",
-    "puppeteer": "^3.1.0"
+    "puppeteer": "^5.3.0"
   }
 }
