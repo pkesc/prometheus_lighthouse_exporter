@@ -26,9 +26,13 @@ http.createServer(async (req, res) => {
 
     if(q.pathname == '/probe'){
         var target = q.query.target;
+        var configUnparsed = q.query.config;
+
         var data = [];
 
+        
         try{
+            var config = configUnparsed ? JSON.parse(configUnparsed) : {};
             const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
 
             data.push('# HELP lighthouse_exporter_info Exporter Info');
@@ -37,7 +41,8 @@ http.createServer(async (req, res) => {
 
             await lighthouse(target, {
                 port: url.parse(browser.wsEndpoint()).port,
-                output: 'json'
+                output: 'json',
+                ...config
             })
                 .then(results => {
                     data.push('# HELP lighthouse_score The Score per Category');
